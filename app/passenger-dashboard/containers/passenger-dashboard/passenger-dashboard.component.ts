@@ -1,61 +1,57 @@
 import { Component, OnInit } from "@angular/core";
+import { PassengerDashboardService } from "../../passenger-dashboard.service";
 import { Passenger } from "../../models/passenger.interface";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "passenger-dashboard",
   styleUrls: ["passenger-dashboard.component.scss"],
   template: `
     <div>
-    <passenger-count
-    [items]="passengers"
-    >
-    </passenger-count>
-    <passenger-detail
-      *ngFor="let passenger of passengers;"
-      [detail]="passenger"
-    >
-    </passenger-detail>
+      <passenger-count [items]="passengers"> </passenger-count>
+      <div *ngFor="let passenger of passengers">
+        {{ passenger.fullname }}
+      </div>
+      <passenger-detail
+        *ngFor="let passenger of passengers"
+        [detail]="passenger"
+        (edit)="handleEdit($event)"
+        (remove)="handleRemove($event)"
+      >
+      </passenger-detail>
     </div>
   `,
 })
 export class PassengerDashboardComponent implements OnInit {
   passengers: Passenger[];
 
-  constructor() {}
+  constructor(private passengerService: PassengerDashboardService) {
+    //allow us to inject the dependency
+  } //dependency injection
 
   ngOnInit(): void {
-    this.passengers = [
-      {
-        id: 1,
-        fullname: "Morris",
-        checkedIn: true,
-        checkingDate: Date.now(),
-        children: [
-          { name: "kuka", age: 1 },
-          { name: "cerdis", age: 10 },
-        ],
-      },
-      {
-        id: 2,
-        fullname: "Mencus",
-        checkedIn: false,
-        checkingDate: null,
-        children: null,
-      },
-      {
-        id: 3,
-        fullname: "Bonzo",
-        checkedIn: true,
-        checkingDate: 2323232323,
-        children: [{ name: "loka", age: 4 }],
-      },
-      {
-        id: 4,
-        fullname: "Pipi",
-        checkedIn: false,
-        checkingDate: null,
-        children: null,
-      },
-    ];
+    this.passengerService.getPassengers().subscribe((data: Passenger[]) => {
+      console.log(data);
+      this.passengers = data;
+    });
+  }
+
+  handleEdit(e: Passenger) {
+    this.passengerService.updatePassengers(e).subscribe((data: Passenger) => {
+      this.passengers = this.passengers.map((passenger: Passenger) => {
+        if (passenger.id === e.id) {
+          passenger = Object.assign({}, passenger, e);
+        }
+        return passenger;
+      });
+    });
+  }
+
+  handleRemove(e: Passenger) {
+    this.passengerService.deletePassengers(e).subscribe((data: Passenger) => {
+      this.passengers = this.passengers.filter((passenger: Passenger) => {
+        return passenger.id !== e.id;
+      });
+    })
   }
 }
