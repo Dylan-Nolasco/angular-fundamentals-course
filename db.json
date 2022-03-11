@@ -1,1 +1,32 @@
-{}
+{
+  "passengers":[
+    {
+      "id": 1,
+      "fullname": "Dylan Nolasco",
+      "checkedIn": true,
+      "checkingDate": 123456789,
+      "baggage": ""
+    },
+    {
+      "id": 2,
+      "fullname": "Axl Nolasco",
+      "checkedIn": true,
+      "checkingDate": 123456789,
+      "baggage": ""
+    },
+    {
+      "id": 3,
+      "fullname": "Lolo Nolasco",
+      "checkedIn": true,
+      "checkingDate": 123456789,
+      "baggage": ""
+    },
+    {
+      "id": 4,
+      "fullname": "Héctor Nolasco",
+      "checkedIn": true,
+      "checkingDate": 123456789,
+      "baggage": ""
+    }
+  ]
+}

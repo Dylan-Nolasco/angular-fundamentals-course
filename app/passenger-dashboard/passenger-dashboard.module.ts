@@ -1,12 +1,14 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { HttpModule } from "@angular/http";
-//containers
-import { PassengerDashboardComponent } from "./containers/passenger-dashboard/passenger-dashboard.component";
+import { FormsModule } from "@angular/forms";
 //presentational
 import { PassengerCountComponent } from "./components/passenger-count/passenger-count.component";
 import { PassengerDetailComponent } from "./components/passenger-detail/passenger-detail.component";
-
+import { PassengerFormComponent } from "./components/passenger-form/passenger-form.component";
+//containers
+import { PassengerDashboardComponent } from "./containers/passenger-dashboard/passenger-dashboard.component";
+import { PassengerViewerComponent } from "./containers/passenger-viewer/passenger-viewer.component";
 //service (Is a provider information)
 import { PassengerDashboardService } from "./passenger-dashboard.service";
 
@@ -15,9 +17,11 @@ import { PassengerDashboardService } from "./passenger-dashboard.service";
     PassengerDashboardComponent,
     PassengerCountComponent,
     PassengerDetailComponent,
+    PassengerViewerComponent,
+    PassengerFormComponent,
   ],
-  imports: [CommonModule, HttpModule],
-  exports: [PassengerDashboardComponent],
+  imports: [CommonModule, HttpModule, FormsModule],
+  exports: [PassengerViewerComponent],
   providers: [
     PassengerDashboardService, //DOM dependency injection
   ],

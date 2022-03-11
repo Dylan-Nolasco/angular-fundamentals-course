@@ -20,7 +20,7 @@ import { Component } from "@angular/core"; //decorated, specific metadata as a t
         <div>Searching for... {{ name }}</div> the example below is sugar syntax from this one
       </template>!-->
       <div class="app">
-      <passenger-dashboard></passenger-dashboard>
+      <passenger-viewer></passenger-viewer>
         <!--<h3>Airline Passengers</h3> 
         <ul>
           <template ngFor let-passenger let-i="index" [ngForOf]="passengers">
