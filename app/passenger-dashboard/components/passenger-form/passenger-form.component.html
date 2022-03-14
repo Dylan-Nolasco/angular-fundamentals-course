@@ -1,4 +1,8 @@
-<form #form="ngForm" novalidate>
+<form
+  #form="ngForm"
+  novalidate
+  (ngSubmit)="handleSubmit(form.value, form.valid)"
+>
   <!--NO validate because we are going to use angular built in validation -->
   {{ detail | json }}
   <div>
@@ -56,7 +60,7 @@
     Check in date:
     <input type="number" name="checkingDate" [ngModel]="detail?.checkingDate" />
   </div>
-  <div>{{ form.value | json }}</div>
-  <div>Valid: {{ form.valid | json }}</div>
-  <div>Invalid: {{ form.invalid | json }}</div>
+  <div>
+    <button type="submit" [disabled]="form.invalid">Update passenger</button>
+  </div>
 </form>

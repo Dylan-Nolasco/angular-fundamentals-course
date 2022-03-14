@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { PassengerDashboardService } from "../../passenger-dashboard.service";
 import { Passenger } from "../../models/passenger.interface";
 import { Observable } from "rxjs";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "passenger-dashboard",
@@ -17,6 +18,7 @@ import { Observable } from "rxjs";
         [detail]="passenger"
         (edit)="handleEdit($event)"
         (remove)="handleRemove($event)"
+        (view)="handleView($event)"
       >
       </passenger-detail>
     </div>
@@ -25,7 +27,10 @@ import { Observable } from "rxjs";
 export class PassengerDashboardComponent implements OnInit {
   passengers: Passenger[];
 
-  constructor(private passengerService: PassengerDashboardService) {
+  constructor(
+    private router: Router,
+    private passengerService: PassengerDashboardService
+  ) {
     //allow us to inject the dependency
   } //dependency injection
 
@@ -52,6 +57,10 @@ export class PassengerDashboardComponent implements OnInit {
       this.passengers = this.passengers.filter((passenger: Passenger) => {
         return passenger.id !== e.id;
       });
-    })
+    });
+  }
+
+  handleView(event: Passenger) {
+    this.router.navigate(['/passengers/', event.id]);
   }
 }

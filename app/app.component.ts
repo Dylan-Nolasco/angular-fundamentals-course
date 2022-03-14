@@ -1,5 +1,11 @@
 import { Component } from "@angular/core"; //decorated, specific metadata as a template, elements
 
+interface Nav {
+  link: string,
+  name: string,
+  exact: boolean
+}
+
 @Component({
   selector: "app-root", //creates an html element
   styleUrls: ["app.component.scss"], //sass file
@@ -20,8 +26,21 @@ import { Component } from "@angular/core"; //decorated, specific metadata as a t
         <div>Searching for... {{ name }}</div> the example below is sugar syntax from this one
       </template>!-->
       <div class="app">
-      <passenger-viewer></passenger-viewer>
-        <!--<h3>Airline Passengers</h3> 
+        <nav class="nav">
+          <a
+            *ngFor="let item of nav"
+            [routerLink]="item.link"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: item.exact }"
+            >
+            {{ item.name }}
+          </a>
+        </nav>
+        <router-outlet></router-outlet>
+        <!--<a routerLink="/oops" routerLinkActive="active">404</a>
+        Placeholder where our component will be injected-->
+        <!--<passenger-viewer></passenger-viewer>
+        <h3>Airline Passengers</h3> 
         <ul>
           <template ngFor let-passenger let-i="index" [ngForOf]="passengers">
             <li>{{ i }} : {{ passenger.fullname }}</li>
@@ -89,13 +108,28 @@ import { Component } from "@angular/core"; //decorated, specific metadata as a t
 export class AppComponent {
   //just a function
   // name: string = "";
-
   // handleChange(value: string) {
   //   this.name = value;
   // }
-
   // handleClick(value) {
   //   // this.name = 'Elías';
   //   console.log(value)
   // }
+  nav: Nav[] = [
+    {
+      link: '/',
+      name: 'Home',
+      exact: true
+    },
+    {
+      link: '/passengers',
+      name: 'Passengers',
+      exact: false
+    },
+    {
+      link: '/oops',
+      name: '404',
+      exact: false
+    },
+  ]
 }

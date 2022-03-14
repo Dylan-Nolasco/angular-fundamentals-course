@@ -1,11 +1,9 @@
 {
-  "passengers":[
+  "passengers": [
     {
+      "fullname": "Ddsdylan Nolascodsse44eer",
       "id": 1,
-      "fullname": "Dylan Nolasco",
-      "checkedIn": true,
-      "checkingDate": 123456789,
-      "baggage": ""
+      "checkedIn": false
     },
     {
       "id": 2,
